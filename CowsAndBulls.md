@@ -2,9 +2,11 @@
 
 Design a simple ReactApp for the game of cows and bulls. Cows and Bulls is a double player game where the computer pulls a word from a collection -- let's call it the **original word**. The objective is for YOU to guess the original word based on a series of clues the computer gives you.
 
-For further context:
-Cows: Characters that are there in the original word that are in the incorrect position.
-Bulls: Characters that are in the original word that are also in the correct position.
+*For further context*:  
+
+Cows: Characters that are there in the original word that are in the incorrect position.  
+
+Bulls: Characters that are in the original word that are also in the correct position.  
 
 ## Game Flow
  Context: In this specific case:
