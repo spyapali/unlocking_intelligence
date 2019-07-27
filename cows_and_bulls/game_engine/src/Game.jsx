@@ -20,7 +20,6 @@ class Game extends Component {
   };
 
   handleGuess = newGuess => {
-    console.log("anything?");
     this.setState({ guess: newGuess });
   };
 
