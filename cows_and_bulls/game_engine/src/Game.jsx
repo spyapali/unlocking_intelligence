@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import WordBar from "./WordBar";
 
-const WORD = "lake";
+const WORD = "LAKE";
 
 class Game extends Component {
   state = {
     gameEnded: false,
     guess: "",
-    originalWord: WORD
+    originalWord: WORD,
+    cows: 0,
+    bulls: 0
   };
 
   handleGuess = newGuess => {
@@ -17,7 +19,6 @@ class Game extends Component {
   addCharsToSet = () => {
     let chars = new Set();
     for (let char of this.state.originalWord) {
-      console.log(char);
       chars.add(char);
     }
     return chars;
@@ -36,12 +37,20 @@ class Game extends Component {
         cows++;
       }
     }
-    return (
-      <div>
-        <h1>Cows: {cows}</h1>
-        <h1>Bulls: {bulls}</h1>
-      </div>
-    );
+    if (bulls === 4) {
+      return <h1>You won! Congrats!</h1>;
+    } else {
+      return (
+        <div>
+          <h1>Cows: {cows}</h1>
+          <h1>Bulls: {bulls}</h1>
+        </div>
+      );
+    }
+  };
+
+  printGameHasEnded = () => {
+    return <h3>Congrats! You've won the game</h3>;
   };
 
   render() {
