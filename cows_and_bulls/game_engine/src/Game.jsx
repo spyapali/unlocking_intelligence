@@ -37,8 +37,12 @@ class Game extends Component {
         cows++;
       }
     }
+    return this.checkIfGameHasEnded(cows, bulls);
+  };
+
+  checkIfGameHasEnded = (cows, bulls) => {
     if (bulls === 4) {
-      return <h1>You won! Congrats!</h1>;
+      return <h3>Congrats! You've won the game</h3>;
     } else {
       return (
         <div>
@@ -47,10 +51,6 @@ class Game extends Component {
         </div>
       );
     }
-  };
-
-  printGameHasEnded = () => {
-    return <h3>Congrats! You've won the game</h3>;
   };
 
   render() {
