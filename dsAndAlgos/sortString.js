@@ -7,23 +7,6 @@ There can be:
 3. Numbers 
 
 In any of these cases, just ignore the special characters and stick to sorting uppercase + lowercase characters. 
-
-*/ 
-
-
-/*
- * Create a function that takes a string and return the string with the letters in alphabetical order (ie. hello becomes ehllo). Assume numbers and punctuation symbols will not be included in the string. 
- * Assumptions:  
- * Order of priority is lowercase then uppercase for same characters. For ex: "aA" vs "Aa" 
- *
- * Example: 
- *
- * alphabetSoup('hello') -> 'ehllo'
- * alphabetSoup('Goodbye') -> 'bdeGooy' 
- * alphabetSoup("FAaf") -> "aAfF"
- * alphabetSoup("")
- * alphabetSoup("asdjfhalsdjkfhalsiuhfelwiueyrweknnsdSDFSDFbfajhsdgfkasjdhfgaksdf") -> 
- * "aaaaaabddddddDDeeefffffffFFgghhhhhiijjjjkkkklllnnrsssssssSSuuwwy"
 */
 
 
