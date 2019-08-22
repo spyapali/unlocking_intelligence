@@ -33,27 +33,29 @@ const useStyles = makeStyles(theme => ({
   },
   }));
   
-
-
 function Game() {
 
   const [guess, setGuess] = useState("");
+  const [tries, setTries] = useState(0);
   const classes = useStyles();
 
-  function handleGuess(newGuess) {
+  const handleGuess = (newGuess) => {
     setGuess(newGuess);
   };
 
-  function addCharsToSet() {
+  const updateTries = () => {
+    setTries(tries + 1);
+  };
+
+  const addCharsToSet = () => {
     let chars = new Set();
     for (let char of WORD) {
       chars.add(char);
     }
     return chars;
   };
-
   
-  function revealCowsandBulls() {
+  const revealCowsandBulls = () => {
     const chars = addCharsToSet();
     let charsSeenSoFar = new Set();
     let bulls = 0,
@@ -70,7 +72,7 @@ function Game() {
     return checkIfGameHasEnded(cows, bulls);
   };
 
-  function checkIfGameHasEnded(cows, bulls) {
+  const checkIfGameHasEnded = (cows, bulls) => {
     if (bulls === 4) {
       return <Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>;
     } else {
@@ -83,6 +85,12 @@ function Game() {
     }
   };
 
+  const revealNumberOfTries = () => {
+    return (
+    <Typography variant="h5" component="h2" gutterButtom># Of Tries: {tries}</Typography>
+    )
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -92,8 +100,9 @@ function Game() {
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
           {'Please enter a word below.\n'}
-          <WordBar onGuess={handleGuess} />
+          <WordBar onGuess={handleGuess} onTry={updateTries} />
           {revealCowsandBulls()}
+          {revealNumberOfTries()}
         </Typography>
       </Container>
       <footer className={classes.footer}>

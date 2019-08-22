@@ -15,12 +15,9 @@ class WordBar extends Component {
     onGuess: PropTypes.func.isRequired
   };
 
-  onComplete = event => {
-    this.props.onGuess(this.state.word);
-  };
-
   onChange = value => {
     this.setState({ word: value });
+    this.props.onGuess(this.state.word);
   };
 
   render() {
@@ -32,13 +29,13 @@ class WordBar extends Component {
           onChange={value => {
             this.onChange(value);
           }}
+          onComplete={() => {
+            this.props.onTry();
+          }}
           type="text"
           style={{ padding: "10px" }}
           inputStyle={{ borderColor: "black" }}
           inputFocusStyle={{ borderColor: "blue" }}
-          onComplete={value => {
-            this.onComplete(value);
-          }}
         />
       </nav>
     );
