@@ -32,7 +32,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
   },
   }));
-  
 function Game() {
 
   const [guess, setGuess] = useState("");
@@ -54,9 +53,10 @@ function Game() {
     }
     return chars;
   };
-  
+
+  const CHARS = addCharsToSet()
+
   const revealCowsandBulls = () => {
-    const chars = addCharsToSet();
     let charsSeenSoFar = new Set();
     let bulls = 0,
       cows = 0;
@@ -64,7 +64,7 @@ function Game() {
       let currentChar = guess[index];
       if (currentChar === WORD[index]) {
         bulls++;
-      } else if (!charsSeenSoFar.has(currentChar) && chars.has(currentChar)) {
+      } else if (!charsSeenSoFar.has(currentChar) && CHARS.has(currentChar)) {
         cows++;
       }
       charsSeenSoFar.add(currentChar);
@@ -86,9 +86,7 @@ function Game() {
   };
 
   const revealNumberOfTries = () => {
-    return (
-    <Typography variant="h5" component="h2" gutterButtom># Of Tries: {tries}</Typography>
-    )
+     return (<Typography variant="h5" component="h2" gutterButtom>Attempts: {tries}</Typography>)
   }
 
   return (
