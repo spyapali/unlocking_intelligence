@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 /**
  * TODO: Whenever the guess changes, there needs to be an update in the # of cows and/or # of bulls.
+ *       Guess is to use "useEffect" and break up cows and bulls into separate states
  *       useEffect can also be used to determine when to re-set the # of attempts to be 0.
  */
 
