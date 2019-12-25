@@ -32,8 +32,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
   },
   }));
-function Game() {
 
+/**
+ * TODO: Whenever the guess changes, there needs to be an update in the # of cows and/or # of bulls.
+ *       useEffect can also be used to determine when to re-set the # of attempts to be 0.
+ */
+
+function Game() {
   const [guess, setGuess] = useState("");
   const [tries, setTries] = useState(0);
   const classes = useStyles();
