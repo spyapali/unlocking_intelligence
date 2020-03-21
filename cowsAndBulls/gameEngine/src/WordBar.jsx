@@ -3,21 +3,12 @@ import PropTypes from "prop-types";
 import PinInput from "react-pin-input";
 
 class WordBar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      word: ""
-    };
-  }
-
   static propTypes = {
     onGuess: PropTypes.func.isRequired
   };
 
   onChange = value => {
-    this.setState({ word: value });
-    this.props.onGuess(this.state.word);
+    this.props.onGuess(value);
   };
 
   render() {
