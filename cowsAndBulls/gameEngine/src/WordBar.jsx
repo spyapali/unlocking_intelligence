@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import PinInput from "react-pin-input";
+import { TextField } from '@material-ui/core';
 
 class WordBar extends Component {
   static propTypes = {
-    onGuess: PropTypes.func.isRequired
+    onGuess: PropTypes.func.isRequired,
+    index: PropTypes.string.isRequired
   };
 
   onChange = value => {
@@ -14,19 +16,13 @@ class WordBar extends Component {
   render() {
     return (
       <nav className="navbar navbar-light bg-light">
-        <PinInput
-          length={4}
-          initialValue=""
+        <TextField
+          inputProps={{'maxLength': '1'}}
           onChange={value => {
             this.onChange(value);
           }}
-          onComplete={() => {
-            this.props.onTry();
-          }}
-          type="text"
-          style={{ padding: "10px" }}
-          inputStyle={{ borderColor: "black" }}
-          inputFocusStyle={{ borderColor: "blue" }}
+          size="normal"
+          style={{width: 20}}
         />
       </nav>
     );
