@@ -50,7 +50,6 @@ function Game() {
   const classes = useStyles();
 
   const handleGuess = (newGuess, index) => {
-    console.log("newGuess: ", newGuess)
     if (newGuess === WORD[index]) {
       updateBulls()
     } else if (CHARS.has(newGuess)) {

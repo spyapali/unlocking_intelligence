@@ -10,7 +10,6 @@ class CharacterSpace extends Component {
   };
 
   onChange = event => {
-    console.log("EVENT: ", event.target.value)
     this.props.onGuess(event.target.value, this.props.index);
   };
 
