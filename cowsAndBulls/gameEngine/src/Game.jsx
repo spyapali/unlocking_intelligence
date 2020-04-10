@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import WordBar from "./WordBar";
+import CharacterSpace from "./CharacterSpace";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import FlexView from 'react-flexview';
 
 const WORD = "LAKE";
 const CHARS = new Set(["L", "A", "K", "E"])
@@ -48,8 +49,13 @@ function Game() {
 
   const classes = useStyles();
 
-  const handleGuess = (newGuess) => {
-    setGuess(newGuess);
+  const handleGuess = (newGuess, index) => {
+    console.log("newGuess: ", newGuess)
+    if (newGuess === WORD[index]) {
+      updateBulls()
+    } else if (CHARS.has(newGuess)) {
+      updateCows()
+    }
   };
 
   const updateTries = () => {
@@ -57,13 +63,18 @@ function Game() {
   };
 
    const updateCows = () => {
-    this.setState(cows + 1);
+    setCows(cows + 1);
   }
 
   const updateBulls = () => {
-    this.setState(bulls + 1)
+    setBulls(bulls + 1)
   }
 
+  const characterSpaces = [0, 1, 2, 3].map((value) => {
+    return <CharacterSpace onGuess={handleGuess} index={value} />
+  })
+
+  const characterSpacesSideBySide = <FlexView hAlignContent='left'>{characterSpaces}</FlexView>
 
   return (
     <div className={classes.root}>
@@ -73,12 +84,14 @@ function Game() {
           Welcome to Cows and Bulls!
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          {'Please enter a word below.\n'}
-          <WordBar onGuess={handleGuess} onTry={updateTries} />
+          {'Please enter a word below.'}
+          <br />
+          {characterSpacesSideBySide}
           {bulls === 4 ? (
             <Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>
           ) : (
           <div>
+            <br />
             <Typography variant="h5" component="h2" gutterButtom>Cows: {cows}</Typography>
             <Typography variant="h5" component="h2" gutterButtom>Bulls: {bulls}</Typography>
           </div>
