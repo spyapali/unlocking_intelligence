@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import WordBar from "./WordBar";
+import React, { useEffect, useState } from "react";
+import CharacterSpace from "./CharacterSpace";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import FlexView from 'react-flexview';
 
 const WORD = "LAKE";
+const CHARS = new Set(["L", "A", "K", "E"])
 
 
 function MadeWithLoveByShalini() {
@@ -40,60 +42,38 @@ const useStyles = makeStyles(theme => ({
  */
 
 function Game() {
+  const [bulls, setBulls] = useState(0);
+  const [cows, setCows] = useState(0);
   const [guess, setGuess] = useState("");
   const [tries, setTries] = useState(0);
+
   const classes = useStyles();
 
-  const handleGuess = (newGuess) => {
-    setGuess(newGuess);
+  const handleGuess = (newGuess, index) => {
+    if (newGuess === WORD[index]) {
+      updateBulls()
+    } else if (CHARS.has(newGuess)) {
+      updateCows()
+    }
   };
 
   const updateTries = () => {
     setTries(tries + 1);
   };
 
-  const addCharsToSet = () => {
-    let chars = new Set();
-    for (let char of WORD) {
-      chars.add(char);
-    }
-    return chars;
-  };
-
-  const CHARS = addCharsToSet()
-
-  const revealCowsandBulls = () => {
-    let charsSeenSoFar = new Set();
-    let bulls = 0,
-      cows = 0;
-    for (let index = 0; index < guess.length; index++) {
-      let currentChar = guess[index];
-      if (currentChar === WORD[index]) {
-        bulls++;
-      } else if (!charsSeenSoFar.has(currentChar) && CHARS.has(currentChar)) {
-        cows++;
-      }
-      charsSeenSoFar.add(currentChar);
-    }
-    return checkIfGameHasEnded(cows, bulls);
-  };
-
-  const checkIfGameHasEnded = (cows, bulls) => {
-    if (bulls === 4) {
-      return <Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>;
-    } else {
-      return (
-        <div>
-          <Typography variant="h5" component="h2" gutterButtom>Cows: {cows}</Typography>
-          <Typography variant="h5" component="h2" gutterButtom>Bulls: {bulls}</Typography>
-        </div>
-      );
-    }
-  };
-
-  const revealNumberOfTries = () => {
-     return (<Typography variant="h5" component="h2" gutterButtom>Attempts: {tries}</Typography>)
+   const updateCows = () => {
+    setCows(cows + 1);
   }
+
+  const updateBulls = () => {
+    setBulls(bulls + 1)
+  }
+
+  const characterSpaces = [0, 1, 2, 3].map((value) => {
+    return <CharacterSpace onGuess={handleGuess} index={value} />
+  })
+
+  const characterSpacesSideBySide = <FlexView hAlignContent='left'>{characterSpaces}</FlexView>
 
   return (
     <div className={classes.root}>
@@ -103,10 +83,19 @@ function Game() {
           Welcome to Cows and Bulls!
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          {'Please enter a word below.\n'}
-          <WordBar onGuess={handleGuess} onTry={updateTries} />
-          {revealCowsandBulls()}
-          {revealNumberOfTries()}
+          {'Please enter a word below.'}
+          <br />
+          {characterSpacesSideBySide}
+          {bulls === 4 ? (
+            <Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>
+          ) : (
+          <div>
+            <br />
+            <Typography variant="h5" component="h2" gutterButtom>Cows: {cows}</Typography>
+            <Typography variant="h5" component="h2" gutterButtom>Bulls: {bulls}</Typography>
+          </div>
+          )}
+          <Typography variant="h5" component="h2" gutterButtom>Attempts: {tries}</Typography>
         </Typography>
       </Container>
       <footer className={classes.footer}>
