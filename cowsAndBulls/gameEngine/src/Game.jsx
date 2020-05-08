@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import WordBar from "./WordBar";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -39,18 +39,26 @@ const useStyles = makeStyles(theme => ({
  *       useEffect can also be used to determine when to re-set the # of attempts to be 0.
  */
 
-function Game() {
+function Game(props) {
   const [guess, setGuess] = useState("");
-  const [tries, setTries] = useState(0);
+  /*
+   * To record the # of tries in the game before
+   * it gets reset.
+   */
+  const prevTriesRef = useRef();
   const classes = useStyles();
+
+
+  useEffect(() => {
+    prevTriesRef.current = props.tries;
+  });
+
+  const prevTries = prevTriesRef.current;
 
   const handleGuess = (newGuess) => {
     setGuess(newGuess);
   };
 
-  const updateTries = () => {
-    setTries(tries + 1);
-  };
 
   const addCharsToSet = () => {
     let chars = new Set();
@@ -62,7 +70,7 @@ function Game() {
 
   const CHARS = addCharsToSet()
 
-  const revealCowsandBulls = () => {
+  const calculateCowsandBulls = () => {
     let charsSeenSoFar = new Set();
     let bulls = 0,
       cows = 0;
@@ -75,12 +83,13 @@ function Game() {
       }
       charsSeenSoFar.add(currentChar);
     }
-    return checkIfGameHasEnded(cows, bulls);
+    return [checkIfGameHasEnded(cows, bulls), revealNumberOfTries(bulls), bulls];
   };
+
 
   const checkIfGameHasEnded = (cows, bulls) => {
     if (bulls === 4) {
-      return <Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>;
+      return (<Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>);
     } else {
       return (
         <div>
@@ -91,9 +100,17 @@ function Game() {
     }
   };
 
-  const revealNumberOfTries = () => {
-     return (<Typography variant="h5" component="h2" gutterButtom>Attempts: {tries}</Typography>)
+  const revealNumberOfTries = (bulls) => {
+    if (bulls === 4) {
+     props.resetTries()
+    } else {
+      return (<Typography variant="h5" component="h2" gutterButtom>Attempts: {props.tries}</Typography>)
+    }
   }
+
+  const revealCowsAndBulls = calculateCowsandBulls()[0];
+  const returnNumberOfTries = calculateCowsandBulls()[1];
+
 
   return (
     <div className={classes.root}>
@@ -104,9 +121,9 @@ function Game() {
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
           {'Please enter a word below.\n'}
-          <WordBar onGuess={handleGuess} onTry={updateTries} />
-          {revealCowsandBulls()}
-          {revealNumberOfTries()}
+          <WordBar onGuess={handleGuess} onTry={props.onChangeTries} />
+          {revealCowsAndBulls}
+          {returnNumberOfTries}
         </Typography>
       </Container>
       <footer className={classes.footer}>
