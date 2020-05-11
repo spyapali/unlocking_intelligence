@@ -4,8 +4,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Button } from '@material-ui/core';
 
-const WORD = "LAKE";
+const WORDS = ["LAKE", "SEAL", "RAIN", "IDOL", "FORD", "CROW", "WHEN", "TAIL"];
+
+const WORD = WORDS[Math.floor(Math.random()*WORDS.length)];
+console.log("WORD: ", WORD)
 
 
 function MadeWithLoveByShalini() {
@@ -59,7 +63,6 @@ function Game(props) {
     setGuess(newGuess);
   };
 
-
   const addCharsToSet = () => {
     let chars = new Set();
     for (let char of WORD) {
@@ -86,10 +89,19 @@ function Game(props) {
     return [checkIfGameHasEnded(cows, bulls), revealNumberOfTries(bulls), bulls];
   };
 
+  const onClickHandler = () => {
+    props.resetTries();
+    window.location.reload();
+  }
+
 
   const checkIfGameHasEnded = (cows, bulls) => {
     if (bulls === 4) {
-      return (<Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>);
+      return (
+        <div>
+        <Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>
+        </div>
+        );
     } else {
       return (
         <div>
@@ -102,9 +114,13 @@ function Game(props) {
 
   const revealNumberOfTries = (bulls) => {
     if (bulls === 4) {
-     props.resetTries()
+    return (<div>
+        <Typography variant="h5" component="h2" color="primary" gutterButtom>TOTAL # of Attempts: {props.tries}</Typography>
+        <Button onClick={onClickHandler} variant="contained">Play Another Game!</Button>
+        </div>
+        )
     } else {
-      return (<Typography variant="h5" component="h2" gutterButtom>Attempts: {props.tries}</Typography>)
+    return (<Typography variant="h5" component="h2" gutterButtom>Attempts: {props.tries}</Typography>)
     }
   }
 
