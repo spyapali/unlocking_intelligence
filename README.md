@@ -11,7 +11,8 @@ You can guess any word by typing it in.
 
 The program will tell you how many cows and bulls it has. 
 
-There's a cow, if there's a shared character between your guess and the real word, but it's not in the correct position. 
+There's a cow, if there's a shared character between your guess and the real word, but it's not in the correct position.  
+
 There's a bull, if there's a shared character in your guess and the real word that IS in the correct position. 
 
 Based on these clues, you need to ultimately guess the ultimate word! Good luck :) 
