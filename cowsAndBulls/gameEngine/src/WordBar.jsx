@@ -30,7 +30,6 @@ class WordBar extends Component {
           inputStyle={{ borderColor: "black" }}
           inputFocusStyle={{ borderColor: "blue" }}
         />
-        {console.log("this.props.isDisabled: ", this.props.isDisabled)}
       </nav>
     );
   }

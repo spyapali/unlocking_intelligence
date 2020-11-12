@@ -9,7 +9,6 @@ import { Button } from '@material-ui/core';
 const WORDS = ["LAKE", "SEAL", "RAIN", "IDOL", "FORD", "CROW", "WHEN", "TAIL"];
 
 const WORD = WORDS[Math.floor(Math.random()*WORDS.length)];
-console.log("WORD: ", WORD)
 
 
 function MadeWithLoveByShalini() {
