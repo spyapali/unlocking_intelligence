@@ -4,6 +4,7 @@ import PinInput from "react-pin-input";
 
 class WordBar extends Component {
   static propTypes = {
+    isDisabled: PropTypes.func.isRequired,
     onGuess: PropTypes.func.isRequired
   };
 
@@ -17,6 +18,7 @@ class WordBar extends Component {
         <PinInput
           length={4}
           initialValue=""
+          disabled={this.props.isDisabled}
           onChange={value => {
             this.onChange(value);
           }}
@@ -28,6 +30,7 @@ class WordBar extends Component {
           inputStyle={{ borderColor: "black" }}
           inputFocusStyle={{ borderColor: "blue" }}
         />
+        {console.log("this.props.isDisabled: ", this.props.isDisabled)}
       </nav>
     );
   }

@@ -94,9 +94,12 @@ function Game(props) {
     window.location.reload();
   }
 
+  /* no need for state here since there's only one way to turn this variable on: if bulls is equal to 4 */
+  let hasGameEnded = false;
 
   const checkIfGameHasEnded = (cows, bulls) => {
     if (bulls === 4) {
+      hasGameEnded = true;
       return (
         <div>
         <Typography variant="h5" component="h2" color="primary" gutterButtom>Congrats! You've won the game!</Typography>
@@ -137,7 +140,7 @@ function Game(props) {
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
           {'Please enter a word below.\n'}
-          <WordBar onGuess={handleGuess} onTry={props.onChangeTries} />
+          <WordBar isDisabled={hasGameEnded} onGuess={handleGuess} onTry={props.onChangeTries} />
           {revealCowsAndBulls}
           {returnNumberOfTries}
         </Typography>
